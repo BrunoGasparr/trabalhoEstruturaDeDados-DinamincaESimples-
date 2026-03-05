@@ -42,4 +42,30 @@ public class FilaSimples {
             }
         }
     }
+
+    public void desenfileirar() {
+        if(!estaVazio()) {
+//            for (int i = 0; i < this.fila.length-1; i++) {
+//                if(this.fila[i+1] != null) {
+//                    this.fila[i] = this.fila[i+1];
+//                } else {
+//                    this.fila[i] = null;
+//                    return;
+//                }
+//                if (i == this.fila.length-2) {
+//                    this.fila[this.fila.length - 1] = null;
+//                }
+//            }
+            //this.fila[this.fila.length-1] = null;
+
+            for (int i = 0; i < this.fila.length-1; i++) {
+                if(this.fila[i] != null) {
+                    this.fila[i] = this.fila[i+1];
+                } else {
+                    return;
+                }
+            }
+            this.fila[this.fila.length-1] = null;
+        }
+    }
 }
