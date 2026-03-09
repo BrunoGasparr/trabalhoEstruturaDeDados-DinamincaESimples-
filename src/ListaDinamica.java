@@ -58,9 +58,6 @@ public class ListaDinamica implements ListaOperacoes{
                 } else {
                     this.inicio.setConteudo(null);
                 }
-
-                //removendo intermediário
-                //método de busca
             }
 
         } else {
@@ -77,14 +74,31 @@ public class ListaDinamica implements ListaOperacoes{
                 return true;
             }
             aux = aux.getProx();
-        } while(aux != null);
+        } while(aux.getProx() != null);
         System.out.println("Elemento " + elemento + " não encontrado!");
         return false;
     }
 
     @Override
     public int removerTodas(String elemento) {
-        return 0;
+        int contadorDeRemocao = 0;
+        if(!existeInicio()) {
+            return 0;
+        }
+        while(this.inicio != null && this.inicio.getConteudo().equals(elemento)) {
+            this.inicio = this.inicio.getProx();
+            contadorDeRemocao++;
+        }
+        No aux = this.inicio;
+        while(aux != null && aux.getProx() != null) {
+            if(aux.getProx().getConteudo().equals(elemento)) {
+                aux.setProx(aux.getProx().getProx());
+                contadorDeRemocao++;
+            } else {
+                aux = aux.getProx();
+            }
+        }
+        return contadorDeRemocao;
     }
 
     @Override

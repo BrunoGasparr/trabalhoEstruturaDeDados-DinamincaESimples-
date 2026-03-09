@@ -1,3 +1,5 @@
+import java.util.Locale;
+
 public class ListaSimples implements ListaOperacoes{
     String[] lista;
 
@@ -90,14 +92,32 @@ public class ListaSimples implements ListaOperacoes{
         System.out.println("A lista possui " + cont + " elementos!");
     }
 
-    @Override
     public int removerTodas(String elemento) {
-        return 0;
+        int cont = 0;
+        if (!estaVazio()){
+            for (int i = 0; i < this.lista.length; i++) {
+                if (this.lista[i] != null) {
+                if (this.lista[i].toLowerCase().trim().equals(elemento.toLowerCase().trim())) {
+                    this.lista[i] = null;
+                   cont++;
+                }
+                }
+            }
+        }
+
+        return cont;
     }
 
-    @Override
     public int contar() {
-        return 0;
+        int cont = 0;
+        if (!estaVazio()) {
+            for (int i = 0; i < this.lista.length; i++) {
+                if (this.lista[i] != null) {
+                    cont++;
+                }
+            }
+        }
+        return cont;
     }
 
     @Override
@@ -105,38 +125,115 @@ public class ListaSimples implements ListaOperacoes{
         return 0;
     }
 
-    @Override
     public String obter(int indice) {
-        return "";
+        if(indice <= 0 || indice >= this.lista.length || this.lista[indice] == null) {
+            return null;
+        }
+        else return this.lista[indice];
     }
 
     @Override
     public boolean inserir(int indice, String elemento) {
+        if (!estaCheia()){
+            if (this.lista[indice] == null) {
+                this.lista[indice] = elemento;
+                return true;
+            }
+            for (int i = indice; i < lista.length ; i++) {
+                if (this.lista[i] == null) {break;}
+                else if (i == lista.length - 1) {return false;}
+            }
+            String auxiliarTroca=null, trocarElemento=null;
+            for (int i = indice; i < lista.length; i++) {
+                if (i == indice) {
+                    trocarElemento = this.lista[i];
+                    this.lista[i] = elemento;
+                    auxiliarTroca = this.lista[i+1];
+                }
+                else if (lista[i] == null) {
+                    lista[i] = trocarElemento;
+                }
+                else {
+                    this.lista[i] = trocarElemento;
+                    trocarElemento = auxiliarTroca;
+                    auxiliarTroca = this.lista[i+1];
+
+                }
+            }
+            return true;
+        }
         return false;
     }
 
     @Override
     public String removerPorIndice(int indice) {
-        return "";
+        String elementoRemovido = this.lista[indice];
+        if (!estaVazio()) {
+            if(indice < 0 || indice >= this.lista.length || this.lista[indice] == null) return null;
+            else this.lista[indice] = null;
+            for (int i = indice; i < lista.length-1 ; i++) {
+                lista[i] = this.lista[i+1];
+            }
+        }
+        this.lista[this.lista.length-1] = null;
+        return elementoRemovido;
     }
 
     @Override
     public void limpar() {
-
+        if(!estaVazio()){
+            for (int i = 0; i < this.lista.length; i++) {
+               this.lista[i] = null;
+            }
+        }
     }
 
     @Override
     public int ultimoIndiceDe(String elemento) {
-        return 0;
+        if (!estaVazio()){
+            int ultimoElementoSolicitado = -1;
+            for (int i = 0; i < this.lista.length; i++) {
+                if (this.lista[i] != null) {
+                if (this.lista[i].trim().toLowerCase().equals(elemento.toLowerCase().trim())) {
+                    ultimoElementoSolicitado = i;
+                }
+                }
+            }
+            return ultimoElementoSolicitado;
+        }
+        return -1;
     }
 
     @Override
     public int contarOcorrencias(String elemento) {
+        if (!estaVazio()){
+            int ultimoElementoSolicitado = 0;
+            for (int i = 0; i < this.lista.length; i++) {
+                if (this.lista[i] != null) {
+                    if (this.lista[i].trim().toLowerCase().equals(elemento.toLowerCase().trim())) {
+                        ultimoElementoSolicitado ++;
+                    }
+                }
+            }
+            return ultimoElementoSolicitado;
+        }
         return 0;
     }
 
     @Override
     public int substituir(String antigo, String novo) {
+        if (!estaVazio()){
+            int quantidadeDeTrocas = 0;
+            for (int i = 0; i < this.lista.length; i++) {
+                if (this.lista[i] != null) {
+                    if (this.lista[i].trim().toLowerCase().equals(antigo.toLowerCase().trim())) {
+                        this.lista[i] = novo;
+                        quantidadeDeTrocas ++;
+                    }
+                }
+            }
+            return quantidadeDeTrocas;
+        }
         return 0;
     }
 }
