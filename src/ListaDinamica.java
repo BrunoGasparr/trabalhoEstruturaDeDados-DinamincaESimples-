@@ -103,11 +103,22 @@ public class ListaDinamica implements ListaOperacoes{
 
     @Override
     public int contar() {
+        if(existeInicio()){
+            int contadorElementos = 0;
+            No aux = this.inicio;
+            do {
+                contadorElementos++;
+                aux = aux.getProx();
+            }while (aux != null);
+            return contadorElementos;
+        }
         return 0;
     }
 
     @Override
     public int adicionarVarios(String[] elementos) {
+       int contador = 0;
+       for ()
         return 0;
     }
 

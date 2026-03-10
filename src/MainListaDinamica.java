@@ -6,8 +6,7 @@ public class MainListaDinamica {
         listaDinamica.adicionarElemento("Arroz");
         listaDinamica.adicionarElemento("Feijão");
         listaDinamica.exibirElementos();
-        System.out.println(listaDinamica.removerTodas("Arroz"));
         listaDinamica.exibirElementos();
-
+        System.out.println(listaDinamica.contar());
     }
 }
