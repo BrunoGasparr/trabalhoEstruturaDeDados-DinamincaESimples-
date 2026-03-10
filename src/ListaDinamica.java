@@ -118,42 +118,144 @@ public class ListaDinamica implements ListaOperacoes{
     @Override
     public int adicionarVarios(String[] elementos) {
        int contador = 0;
-       for ()
-        return 0;
+        for (int i = 0; i < elementos.length ; i++) {
+            adicionarElemento(elementos[i]);
+            contador++;
+        }
+        return contador;
     }
 
     @Override
     public String obter(int indice) {
-        return "";
+        if(indice>=0 ){
+            No aux = this.inicio;
+        if (existeInicio()) {
+            for (int i = 0; i <= indice; i++) {
+                if(i == indice){
+                    return aux.getConteudo();
+                }
+                else if(aux.getProx() == null){
+                    return null;
+                }
+                aux = aux.getProx();
+            }
+        }
+        }
+        return null;
     }
 
     @Override
     public boolean inserir(int indice, String elemento) {
+        if(indice < 0){
+            return false;
+        }
+        No novoNo = new No(elemento);
+        if(indice == 0){
+            if(!existeInicio()){
+                this.inicio.setConteudo(elemento);
+            }else{
+                novoNo.setProx(this.inicio);
+                this.inicio = novoNo;
+            }
+            return true;
+        }
+        if(existeInicio()){
+            No aux = this.inicio;
+            for(int i = 0; i < indice - 1; i++){
+                if(aux.getProx() == null){
+                    return false;
+                }
+                aux = aux.getProx();
+            }
+            novoNo.setProx(aux.getProx());
+            aux.setProx(novoNo);
+            return true;
+        }
         return false;
     }
 
     @Override
     public String removerPorIndice(int indice) {
-        return "";
+        if (indice < 0) return null;
+        if (existeInicio()) {
+            String conteudoRemovido;
+            if(indice == 0){
+                conteudoRemovido = this.inicio.getConteudo();
+                this.inicio = this.inicio.getProx();
+                return conteudoRemovido;
+            }
+            else {
+                No aux = this.inicio;
+                for(int i = 0; i < indice; i++){
+                     if(indice-1 == i && aux.getProx() != null){
+                        conteudoRemovido = aux.getProx().getConteudo();
+                        aux.setProx(aux.getProx().getProx());
+                        return conteudoRemovido;
+                    }
+                     if(aux.getProx() == null){
+                         return null;
+                     }
+                    aux = aux.getProx();
+                    }
+                }
+            }
+        return null;
     }
 
     @Override
     public void limpar() {
-
+        if (existeInicio()){
+            this.inicio = null;
+        }
     }
 
     @Override
     public int ultimoIndiceDe(String elemento) {
-        return 0;
+        if(buscarElemento(elemento)){
+            int indiceUltimoElemento = 0, contador=0;
+            No aux = this.inicio;
+            while(aux.getProx() != null){
+                contador++;
+                if(aux.getProx().getConteudo().equals(elemento)){
+                    indiceUltimoElemento = contador;
+                }
+                aux = aux.getProx();
+            }
+            return indiceUltimoElemento;
+        }
+        return -1;
     }
 
     @Override
     public int contarOcorrencias(String elemento) {
-        return 0;
+        if(buscarElemento(elemento)){
+            int contador=0;
+            No aux = this.inicio;
+            while(aux != null){
+                if(aux.getConteudo().equals(elemento)){
+                contador++;
+                }
+                aux = aux.getProx();
+            }
+            return contador;
+        }
+        return -1;
     }
 
     @Override
     public int substituir(String antigo, String novo) {
+        if(buscarElemento(antigo)){
+            No aux = this.inicio;
+            int contador=0;
+            while(aux != null){
+                if(aux.getConteudo().equals(antigo)){
+                    contador++;
+                    aux.setConteudo(novo);
+                }
+                aux = aux.getProx();
+            }
+            return contador;
+        }
         return 0;
     }
 }

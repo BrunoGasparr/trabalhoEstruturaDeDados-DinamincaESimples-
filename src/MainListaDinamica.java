@@ -8,5 +8,6 @@ public class MainListaDinamica {
         listaDinamica.exibirElementos();
         listaDinamica.exibirElementos();
         System.out.println(listaDinamica.contar());
+        System.out.println(listaDinamica.obter(3));
     }
 }

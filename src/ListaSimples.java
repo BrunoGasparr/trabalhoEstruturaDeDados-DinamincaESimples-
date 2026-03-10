@@ -122,11 +122,19 @@ public class ListaSimples implements ListaOperacoes{
 
     @Override
     public int adicionarVarios(String[] elementos) {
-        return 0;
+        int adicionados = 0;
+            for (int i = 0; i < elementos.length; i++) {
+                if (!estaCheia()){
+                    adicionarElemento(elementos[i]);
+                    adicionados++;
+                }
+                else break;
+            }
+        return adicionados;
     }
 
     public String obter(int indice) {
-        if(indice <= 0 || indice >= this.lista.length || this.lista[indice] == null) {
+        if(indice < 0 || indice >= this.lista.length || this.lista[indice] == null) {
             return null;
         }
         else return this.lista[indice];
